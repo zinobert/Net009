@@ -6842,7 +6842,7 @@ questions = [
         "options": [
             "A. BGP",
             "B. EIGRP",
-            "C. RIP",
+            "C. RIPv2",
             "D. OSPF"
         ],
         "answer": "A. BGP"
