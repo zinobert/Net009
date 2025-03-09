@@ -348,7 +348,7 @@ def view_scores_callback(call):
             scores = cursor.fetchall()
 
         # Format the leaderboard
-        leaderboard = "<code>[CompTIA N+ N10 009]</code>\n<blockquote>🏆 <b>[LEADERBOARD]</b> 🏆</blockquote>\n\n"
+        leaderboard = "<code>[CompTIA N+ N10 009]</code>\n<blockquote>🏆 <b>[LEADERBOARD]</b> 🏆</blockquote>\n\n [Under Construction🚧]"
         for rank, (username, correct) in enumerate(scores, 1):
             percentage_correct = (correct / total_questions) * 100 if total_questions else 0
             if rank == 1:
