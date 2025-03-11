@@ -358,7 +358,7 @@ def view_scores_callback(call):
             elif rank == 3:
                 leaderboard += f"🥉 <b>{username}: [ {percentage_correct:.0f}% ]</b>\n\n"
             else:
-                 leaderboard += f"<code>{rank}. {username}: {correct} [{percentage_correct:.0f}%]</code>\n\n"
+                 leaderboard += f"<code>{rank}. {username}: {correct} [{percentage_correct:.0f}%]</code>\n"
 
 
         # Save the leaderboard message id for later deletion
@@ -430,7 +430,7 @@ def score_command_handler(message):
             elif rank == 3:
                 leaderboard += f"🥉 <b>{username}: [ {percentage_correct:.0f}% ]</b>\n\n"
             else:
-                leaderboard += f"<code>{rank}. {username}: {correct} [{percentage_correct:.0f}%]</code>\n\n"
+                leaderboard += f"<code>{rank}. {username}: {correct} [{percentage_correct:.0f}%]</code>\n"
 
 
         bot.send_message(user_id, leaderboard, parse_mode="HTML")
