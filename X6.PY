@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 # Path to database file
 DB_PATH = os.path.join(os.path.dirname(__file__), 'net.db')
 
-# Ensure the database directory exists
+# Ensure the database directory exist
 db_dir = os.path.dirname(DB_PATH)
 if not os.path.exists(db_dir):
     os.makedirs(db_dir)
@@ -358,7 +358,9 @@ def view_scores_callback(call):
             elif rank == 3:
                 leaderboard += f"🥉 <b>{username}: [ {percentage_correct:.0f}% ]</b>\n\n"
             else:
-                leaderboard += f"<code>{rank}. {username}: {correct} [{percentage_correct:.0f}%]</code>\n"
+                 leaderboard += f"<code>{rank}. {username}: {correct} [{percentage_correct:.0f}%]</code>\n\n<code>[Under Construction🚧 scores and names may reset]</code>"
+
+
 
         # Send the leaderboard message
         bot.send_message(user_id, leaderboard, parse_mode="HTML")
@@ -436,7 +438,7 @@ def score_command_handler(message):
             scores = cursor.fetchall()
 
         # Format the leaderboard
-        leaderboard = "<code>[CompTIA N+ N10 009]</code>\n<blockquote>🏆 <b>[LEADERBOARD]</b> 🏆</blockquote>\n\n [Under Construction🚧 scores and names may reset]"
+        leaderboard = "<code>[CompTIA N+ N10 009]</code>\n<blockquote>🏆 <b>[LEADERBOARD]</b> 🏆</blockquote>\n\n"
         for rank, (username, correct) in enumerate(scores, 1):
             percentage_correct = (correct / total_questions) * 100 if total_questions else 0
             if rank == 1:
@@ -446,7 +448,8 @@ def score_command_handler(message):
             elif rank == 3:
                 leaderboard += f"🥉 <b>{username}: [ {percentage_correct:.0f}% ]</b>\n\n"
             else:
-                leaderboard += f"<code>{rank}. {username}: {correct} [{percentage_correct:.0f}%]</code>\n"
+                leaderboard += f"<code>{rank}. {username}: {correct} [{percentage_correct:.0f}%]</code>\n\n<code>[Under Construction🚧 scores and names may reset]</code>"
+
 
         bot.send_message(user_id, leaderboard, parse_mode="HTML")
     except Exception as e:
