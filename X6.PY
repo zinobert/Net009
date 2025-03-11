@@ -347,29 +347,23 @@ def view_scores_callback(call):
             """)
             scores = cursor.fetchall()
 
-       # Format the leaderboard
-    leaderboard = "<code>[CompTIA N+ N10 009]</code>\n<blockquote>🏆 <b>[LEADERBOARD]</b> 🏆</blockquote>\n\n"
-    for rank, (username, correct) in enumerate(scores, 1):
-        percentage_correct = (correct / total_questions) * 100 if total_questions else 0
-        if rank == 1:
-            leaderboard += f"🥇 <b>{username}: [ {percentage_correct:.0f}% ]</b>\n"
-        elif rank == 2:
-            leaderboard += f"🥈 <b>{username}: [ {percentage_correct:.0f}% ]</b>\n"
-        elif rank == 3:
-            leaderboard += f"🥉 <b>{username}: [ {percentage_correct:.0f}% ]</b>\n\n"
-        else:
-            leaderboard += f"<code>{rank}. {username}: {correct} [{percentage_correct:.0f}%]</code>\n"
+        # Format the leaderboard (Corrected Indentation)
+        leaderboard = "<code>[CompTIA N+ N10 009]</code>\n<blockquote>🏆 <b>[LEADERBOARD]</b> 🏆</blockquote>\n\n"
+        for rank, (username, correct) in enumerate(scores, 1):
+            percentage_correct = (correct / total_questions) * 100 if total_questions else 0
+            if rank == 1:
+                leaderboard += f"🥇 <b>{username}: [ {percentage_correct:.0f}% ]</b>\n"
+            elif rank == 2:
+                leaderboard += f"🥈 <b>{username}: [ {percentage_correct:.0f}% ]</b>\n"
+            elif rank == 3:
+                leaderboard += f"🥉 <b>{username}: [ {percentage_correct:.0f}% ]</b>\n\n"
+            else:
+                leaderboard += f"<code>{rank}. {username}: {correct} [{percentage_correct:.0f}%]</code>\n"
 
-    bot.send_message(user_id, leaderboard, parse_mode="HTML")
+        # Send the leaderboard message
+        bot.send_message(user_id, leaderboard, parse_mode="HTML")
 
-    # Send the image along with the leaderboard as the caption
-    image_url = "https://i.postimg.cc/gJ9ZrPdj/123222.png"
-    bot.send_photo(user_id, image_url, caption=leaderboard, parse_mode="HTML")
-
-except Exception as e:
-    bot.send_message(user_id, f"Error retrieving leaderboard: {str(e)}")
-
-        # Send the image along with the leaderboard as the caption
+        # Send the image along with the leaderboard
         image_url = "https://i.postimg.cc/gJ9ZrPdj/123222.png"
         bot.send_photo(user_id, image_url, caption=leaderboard, parse_mode="HTML")
 
@@ -382,9 +376,6 @@ except Exception as e:
 
     except Exception as e:
         bot.send_message(user_id, f"Error retrieving leaderboard: {str(e)}")
-
-
-
 
         # Save the leaderboard message id for later deletion
         call.message.reply_markup = None  # Clear the "view_scores" button
