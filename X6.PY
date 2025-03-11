@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 # Path to database file
 DB_PATH = os.path.join(os.path.dirname(__file__), 'net.db')
 
-# Ensure the database directory exist
+# Ensure the database directory exists
 db_dir = os.path.dirname(DB_PATH)
 if not os.path.exists(db_dir):
     os.makedirs(db_dir)
@@ -347,7 +347,7 @@ def view_scores_callback(call):
             """)
             scores = cursor.fetchall()
 
-        # Format the leaderboard (Corrected Indentation)
+        # Format the leaderboard
         leaderboard = "<code>[CompTIA N+ N10 009]</code>\n<blockquote>🏆 <b>[LEADERBOARD]</b> 🏆</blockquote>\n\n"
         for rank, (username, correct) in enumerate(scores, 1):
             percentage_correct = (correct / total_questions) * 100 if total_questions else 0
@@ -358,7 +358,27 @@ def view_scores_callback(call):
             elif rank == 3:
                 leaderboard += f"🥉 <b>{username}: [ {percentage_correct:.0f}% ]</b>\n\n"
             else:
-                 leaderboard += f"<code>{rank}. {username}: {correct} [{percentage_correct:.0f}%]</code>\n"
+                leaderboard += f"<code>{rank}. {username}: {correct} [{percentage_correct:.0f}%]</code>\n"
+
+        bot.send_message(user_id, leaderboard, parse_mode="HTML")
+    except Exception as e:
+        bot.send_message(user_id, f"Error retrieving leaderboard: {str(e)}")
+
+        # Send the image along with the leaderboard as the caption
+        image_url = "https://i.postimg.cc/gJ9ZrPdj/123222.png"
+        bot.send_photo(user_id, image_url, caption=leaderboard, parse_mode="HTML")
+
+        # Add a "Resume Quiz" button below the leaderboard
+        markup = InlineKeyboardMarkup(row_width=1)
+        markup.add(InlineKeyboardButton("Resume Quiz", callback_data="resume_quiz"))
+
+        # Send the button after the image
+        bot.send_message(user_id, "Click to resume your quiz:", reply_markup=markup)
+
+    except Exception as e:
+        bot.send_message(user_id, f"Error retrieving leaderboard: {str(e)}")
+
+
 
 
         # Save the leaderboard message id for later deletion
@@ -431,7 +451,6 @@ def score_command_handler(message):
                 leaderboard += f"🥉 <b>{username}: [ {percentage_correct:.0f}% ]</b>\n\n"
             else:
                 leaderboard += f"<code>{rank}. {username}: {correct} [{percentage_correct:.0f}%]</code>\n"
-
 
         bot.send_message(user_id, leaderboard, parse_mode="HTML")
     except Exception as e:
@@ -6823,7 +6842,7 @@ questions = [
         "options": [
             "A. BGP",
             "B. EIGRP",
-            "C. RIPv2",
+            "C. RIP",
             "D. OSPF"
         ],
         "answer": "A. BGP"
