@@ -1,3 +1,2 @@
 telebot
 logging
-pysqlite3==0.4.6
