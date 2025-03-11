@@ -361,24 +361,6 @@ def view_scores_callback(call):
                  leaderboard += f"<code>{rank}. {username}: {correct} [{percentage_correct:.0f}%]</code>\n\n<code>[Under Construction🚧 scores and names may reset]</code>"
 
 
-
-        # Send the leaderboard message
-        bot.send_message(user_id, leaderboard, parse_mode="HTML")
-
-        # Send the image along with the leaderboard
-        image_url = "https://i.postimg.cc/gJ9ZrPdj/123222.png"
-        bot.send_photo(user_id, image_url, caption=leaderboard, parse_mode="HTML")
-
-        # Add a "Resume Quiz" button below the leaderboard
-        markup = InlineKeyboardMarkup(row_width=1)
-        markup.add(InlineKeyboardButton("Resume Quiz", callback_data="resume_quiz"))
-
-        # Send the button after the image
-        bot.send_message(user_id, "Click to resume your quiz:", reply_markup=markup)
-
-    except Exception as e:
-        bot.send_message(user_id, f"Error retrieving leaderboard: {str(e)}")
-
         # Save the leaderboard message id for later deletion
         call.message.reply_markup = None  # Clear the "view_scores" button
     except sqlite3.Error as e:
